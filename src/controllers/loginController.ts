@@ -28,13 +28,19 @@ class LoginController {
   @bodyValidator('email', 'password')
   postLogin(req: RequestWithBody, res: Response) {
     const { email, password } = req.body;
-  
+
     if (email && password && email === 'mail' && password === 'pass') {
-  
+
       req.session = { loggedIn: true };
       res.redirect('/');
     } else {
       res.send('invalid email or password');
     }
+  };
+
+  @get('/logout')
+  getLogout(req: Request, res: Response) {
+    req.session = undefined;
+    res.redirect('/');
   };
 }
